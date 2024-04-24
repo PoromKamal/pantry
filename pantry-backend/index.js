@@ -22,9 +22,6 @@ app.use(auth(config));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.listen(port, () => {
-    console.log(`Successfully started server on port ${port}.`);
-});
 
 //SAMPLE ROUTES, TO BE DELETED LATER
 // req.isAuthenticated is provided from the auth router
@@ -34,4 +31,8 @@ app.get('/', (req, res) => {
 
 app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
+});
+
+app.listen(port, () => {
+  console.log(`Successfully started server on port ${port}.`);
 });
