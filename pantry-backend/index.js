@@ -1,11 +1,13 @@
 const express = require("express");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
+const fs = require('fs');
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
 const { Client } = require('pg');
 const db = require("./pantryDB/index.js");
-
+const  { GoogleGenerativeAI } = require("@google/generative-ai");
 db.initDB();
 dotenv.config();
 
@@ -30,17 +32,21 @@ const port =  5000;
 app.use(auth(config));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
+app.use("/pantry", require("./routes/pantryRoutes.js"));
 
-
-//SAMPLE ROUTES, TO BE DELETED LATER
-// req.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
 
 app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
+
+app.get('/getMe', (req, res) =>{
+  if (req.oidc.isAuthenticated()){
+    res.send(JSON.stringify(req.oidc.user));
+  } else {
+    res.send("Not authenticated");
+  }
+})
 
 //Special sign-in which registers a user in our database
 //terrible workaround since i don't feel like figuring out how to
