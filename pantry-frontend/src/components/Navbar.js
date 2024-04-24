@@ -4,22 +4,14 @@ import MenuItem from "@mui/material/MenuItem"
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(()=>{
-    console.log("test")
-  }, [])
   return(
-    <div className="w-full flex space-between">
+    <div className="w-full flex justify-between px-11 py-5">
       <div>
         <h1>Pantry</h1>
       </div>
-      <div>
-        <div className="cursor-pointer" onClick={()=>{console.log("here")}}>
-          My Pantry
-        </div>
-        <Menu open={menuOpen}>
-          <MenuItem>Sign In</MenuItem>
-        </Menu>
-      </div>
+      <a className="cursor-pointer" href="http://localhost:5000/sign-in">
+        Sign in
+      </a>
     </div>
   )
 }

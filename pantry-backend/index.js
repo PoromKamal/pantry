@@ -3,6 +3,10 @@ const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
+const { Client } = require('pg');
+const db = require("./pantryDB/index.js");
+
+db.initDB();
 dotenv.config();
 
 const config = {
@@ -11,7 +15,12 @@ const config = {
   secret: process.env.AUTH0_SECRET,
   baseURL: 'http://localhost:5000',
   clientID: 'pqldfYOs6ofTUbOlVfJ4xLCVdN6vDJsA',
-  issuerBaseURL: 'https://dev-g0gqqbnnagycimmh.us.auth0.com'
+  issuerBaseURL: 'https://dev-g0gqqbnnagycimmh.us.auth0.com',
+  routes: {
+    login: false,
+    callback: "/callback",
+    logout: "/logout"
+  }
 };
 
 const app = express();
@@ -33,6 +42,29 @@ app.get('/profile', requiresAuth(), (req, res) => {
   res.send(JSON.stringify(req.oidc.user));
 });
 
+//Special sign-in which registers a user in our database
+//terrible workaround since i don't feel like figuring out how to
+//override the default /login route.
+app.get('/sign-in', (req, res) => {
+  res.oidc.login({
+    returnTo:"/registerOrRedirect"
+  });
+});
+
+
+app.get("/registerOrRedirect", (req, res) => {
+  console.log("here");
+  if(req.oidc.isAuthenticated()){
+    // Check if user in the database
+    db.registerUser(req.oidc.user.email, req.oidc.user.given_name);
+  }
+  res.redirect("http://localhost:3000/");
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
 });
+
