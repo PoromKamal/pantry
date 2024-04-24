@@ -24,11 +24,22 @@ const initDB = async () => {
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`;
 
+  const pantryTable = `CREATE TABLE IF NOT EXISTS pantryItem (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    quantity INTEGER,
+    price DECIMAL,
+    expiration_date DATE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`; // TODO: Add images
+
   const dropAll = `DROP TABLE IF EXISTS users CASCADE`;
 
   try {
     await client.query(dropAll);
     await client.query(userTable);
+    await client.query(pantryTable);
     await client.query("COMMIT");
   } catch (e) {
     await client.query("ROLLBACK");
