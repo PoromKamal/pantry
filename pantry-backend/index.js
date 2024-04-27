@@ -6,8 +6,9 @@ const fs = require('fs');
 const { auth } = require('express-openid-connect');
 const { requiresAuth } = require('express-openid-connect');
 const { Client } = require('pg');
-const db = require("./pantryDB/index.js");
+const db = require("./db/index.js");
 const  { GoogleGenerativeAI } = require("@google/generative-ai");
+
 db.initDB();
 dotenv.config();
 
@@ -34,41 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use("/pantry", require("./routes/pantryRoutes.js"));
-
-
-app.get('/profile', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
-});
-
-app.get('/getMe', (req, res) =>{
-  if (req.oidc.isAuthenticated()){
-    res.send(JSON.stringify(req.oidc.user));
-  } else {
-    res.send("Not authenticated");
-  }
-})
-
-//Special sign-in which registers a user in our database
-//terrible workaround since i don't feel like figuring out how to
-//override the default /login route.
-app.get('/sign-in', (req, res) => {
-  res.oidc.login({
-    returnTo:"/registerOrRedirect"
-  });
-});
-
-
-app.get("/registerOrRedirect", (req, res) => {
-  console.log("here");
-  if(req.oidc.isAuthenticated()){
-    // Check if user in the database
-    db.registerUser(req.oidc.user.email, req.oidc.user.given_name);
-  }
-  res.redirect("http://localhost:3000/");
-});
-
-
-
+app.use("/user", require("./routes/userRoutes.js"));
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
