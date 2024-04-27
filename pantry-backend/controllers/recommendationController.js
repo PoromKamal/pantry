@@ -3,9 +3,7 @@ const userDb = require('../db/user.js');
 
 const getRecommendation = asyncHandler(async (req, res) => {
   email = req.oidc.user.email;
-  let userId = await userDb.getUserByEmail(email);
-  console.log(userId);
-  res.send('test');
+  let user = await userDb.getUserByEmail(email);
 });
 
 module.exports = { getRecommendation };
