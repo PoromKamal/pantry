@@ -26,12 +26,12 @@ router.get('/sign-in', (req, res) => {
 
 
 router.get("/registerOrRedirect", (req, res) => {
-  console.log("here");
   if(req.oidc.isAuthenticated()){
     // Check if user in the database
     db.registerUser(req.oidc.user.email, req.oidc.user.given_name);
+    // TODO: Add redirect to user dashboard (make sure to return res.redirect, instead of just res.redirect)
   }
-  res.redirect("http://localhost:3000/");
+  res.redirect("http://localhost:3000/"); 
 });
 
 

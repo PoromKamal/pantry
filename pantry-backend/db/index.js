@@ -49,7 +49,14 @@ const initDB = async () => {
   }
 }
 
+const userExists = async (email) => {
+  return (await pool.query("SELECT * FROM users WHERE email = $1", [email])).rows.length > 0;
+}
+
 const registerUser = async (email, given_name) => {
+  if (await userExists(email)) {
+    return;
+  }
   const client = await pool.connect();
   await client.query("BEGIN");
   const insertUserQuery = `INSERT INTO users (email, given_name) VALUES ($1, $2)`;
