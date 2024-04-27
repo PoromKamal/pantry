@@ -26,7 +26,6 @@ router.get('/sign-in', (req, res) => {
 
 
 router.get("/registerOrRedirect", (req, res) => {
-  console.log("here");
   if(req.oidc.isAuthenticated()){
     // Check if user in the database
     db.registerUser(req.oidc.user.email, req.oidc.user.given_name);

@@ -36,8 +36,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use("/pantry", require("./routes/pantryRoutes.js"));
 app.use("/user", require("./routes/userRoutes.js"));
+app.use("/recommendation", require("./routes/recommendationRoutes.js"));
+
+
+app.get("/profile", requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
 });
+
+
 

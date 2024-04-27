@@ -24,7 +24,7 @@ router.get('/items/:user_id', async (req, res) => {
     const items = await getItems(user_id);
     res.json(items);
 });
-  
+
 // Add pantry item
 router.post('/item', async (req, res) => {
     const { name, quantity = 0, price = 0, expiration_date = null, user_id } = req.body;

@@ -9,7 +9,7 @@ export default function Navbar() {
       <div>
         <h1>Pantry</h1>
       </div>
-      <a className="cursor-pointer" href="http://localhost:5000/sign-in">
+      <a className="cursor-pointer" href="http://localhost:5000/user/sign-in">
         Sign in
       </a>
     </div>
