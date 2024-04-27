@@ -64,10 +64,13 @@ const generatePantryItemsFromReceipt = async (receiptBuffer) => {
 }
 
 const scanReceipt = asyncHandler(async (req, res) => {
-  const receiptBuffer = req.body.receiptBuffer;
-  console.log(receiptBuffer)
-  return;
-  const result = await generatePantryItemsFromReceipt(receiptBuffer);
+  const receiptBuffer = req.file;
+  if (!receiptBuffer) {
+    res.status(400).json({ message: "No receipt buffer found" });
+    return;
+  }
+
+  const result = await generatePantryItemsFromReceipt(receiptBuffer.buffer.toString("base64"));
   res.json(result);
 });
 

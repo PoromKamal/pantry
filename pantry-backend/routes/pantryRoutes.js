@@ -1,11 +1,10 @@
 const express = require('express');
-const { scanReceipt } = require('../services/visionService');
 const { getItem, getItems, addItem, editItem, deleteItem } = require('../db/index.js')
+const multer = require('multer');
 const { protected } = require('../middleware/auth.js');
+const {scanReceipt} = require('../controllers/visionController.js');
 const router = express.Router();
-
-// router.post("/scanReceipt", scanReceipt);
-
+const upload = multer();
 router.get('/', async (req, res) => {
     res.send('pantry');
 });
@@ -49,5 +48,7 @@ router.delete('/item/:id', async (req, res) => {
     await deleteItem(id);
     res.json({ message: 'Item deleted successfully' });
 });
+
+router.post("/scanReceipt", upload.single("receiptBuffer"), scanReceipt);
 
 module.exports = (router);
