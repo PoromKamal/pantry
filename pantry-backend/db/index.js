@@ -37,7 +37,7 @@ const initDB = async () => {
   const dropAll = `DROP TABLE IF EXISTS users CASCADE`;
 
   try {
-    await client.query(dropAll);
+    //await client.query(dropAll);
     await client.query(userTable);
     await client.query(pantryTable);
     await client.query("COMMIT");
