@@ -10,10 +10,13 @@ router.post("/insert_items/", async (req, res) => {
   if(!email){
     return res.status(400).json({message: 'Email is required'});
   }
+  
   const user = await userDb.getUserByEmail(email);
+
   if(!user){
     return res.status(404).json({message: 'User not found'});
   }
+
   for(let item of foodItems){
     await pantryDb.addItem(item.name, item.quantity, item.price, item.expiration_date, user.id);
   }

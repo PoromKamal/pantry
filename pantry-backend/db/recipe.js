@@ -13,18 +13,18 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 });
 
-const getRecipesBetweenDates = async (start, end) => {
-  const query = `SELECT * FROM recipes WHERE created_at BETWEEN $1 AND $2`;
-  const res = await pool.query(query, [start, end]);
+const getRecipesBetweenDatesForUser = async (userId, start, end) => {
+  const query = `SELECT * FROM recipes WHERE created_at BETWEEN $1 AND $2 and user_id = $3`;
+  const res = await pool.query(query, [start, end, userId]);
   return res.rows;
 }
 
 const addRecipe = async(recipe, userId) => {
-  const query = `INSERT INTO recipes (user_id, url, image_small, image_large, name, calories, fat, protein, carbs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+  const query = `INSERT INTO recipes (user_id, url, image_regular, image_large, name, calories, fat, protein, carbs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+  const client = await pool.connect();
   try{
-    const client = await pool.connect();
     await client.query("BEGIN");
-    const res = await client.query(query, [userId, recipe.url, recipe.image_small, recipe.image_large, recipe.name, recipe.calories, recipe.fat, recipe.protein, recipe.carbs]);
+    const res = await client.query(query, [userId, recipe.url, recipe.image_regular, recipe.image_large, recipe.name, recipe.calories, recipe.fat, recipe.protein, recipe.carbs]);
     await client.query("COMMIT");
     return res.rows[0];
   } catch (e) {
@@ -33,4 +33,4 @@ const addRecipe = async(recipe, userId) => {
   }
 }
 
-module.exports = {getRecipesBetweenDates, addRecipe}
+module.exports = {getRecipesBetweenDatesForUser, addRecipe}
