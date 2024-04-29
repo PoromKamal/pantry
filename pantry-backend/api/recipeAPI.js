@@ -15,7 +15,6 @@ const searchRecipe = async (query) => {
     return null;
   }
   const firstResult = data.hits[0];
-  console.log(firstResult.recipe.images);
   const result = {
     name: firstResult.recipe.label,
     url: firstResult.recipe.url,
