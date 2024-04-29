@@ -55,7 +55,6 @@ const getRecipe = asyncHandler(async (req, res) => {
   const result = [];
 
   for (let recipe of possibleRecipes.split(",")){
-    console.log(recipe.trim());
     const recipeResult = await recipeApi.searchRecipe(recipe.trim());
     await recipeDb.addRecipe(recipeResult, user.id);
     result.push(recipeResult);

@@ -7,7 +7,6 @@ const searchRecipe = async (query) => {
   if(!query){
     return null;
   }
-  console.log(query);
   const response = await fetch(`${apiUrl}?type=public&q=${query}&app_id=${process.env.RECIPE_API_APP_ID}&app_key=${process.env.RECIPE_API_KEY}&imageSize=LARGE&imageSize=REGULAR`);
   const data = await response.json();
   // Get the first recipe
