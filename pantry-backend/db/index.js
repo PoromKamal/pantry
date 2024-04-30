@@ -145,4 +145,4 @@ const deleteItem = async (id) => {
   }
 }
 
-module.exports = {registerUser, initDB, getItem, getItems, addItem, editItem, deleteItem};
+module.exports = {userExists, registerUser, initDB, getItem, getItems, addItem, editItem, deleteItem};

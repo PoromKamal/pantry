@@ -8,6 +8,7 @@ const { requiresAuth } = require('express-openid-connect');
 const { Client } = require('pg');
 const db = require("./db/index.js");
 const  { GoogleGenerativeAI } = require("@google/generative-ai");
+const {jwtDecode} = require('jwt-decode');
 
 db.initDB();
 dotenv.config();
@@ -20,9 +21,37 @@ const config = {
   clientID: 'pqldfYOs6ofTUbOlVfJ4xLCVdN6vDJsA',
   issuerBaseURL: 'https://dev-g0gqqbnnagycimmh.us.auth0.com',
   routes: {
-    login: false,
+    login: "/login",
     callback: "/callback",
     logout: "/logout"
+  },
+  afterCallback: async (req, res, session, decodedState) => {
+    if (session) {
+      const token = jwtDecode(session.id_token)
+      
+      console.log(session)
+      console.log(token)
+
+      const userProfile = {
+        email: token.email,
+        given_name: token.given_name || token.nickname || null,
+        picture: token.picture,
+      };
+
+      try {
+        console.log(userProfile)
+        const userExist = await db.userExists(userProfile.email);
+        if (!userExist) {
+          await db.registerUser(userProfile.email, userProfile.given_name);
+        }
+        return {
+          ...session,
+          userProfile,
+        };
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 };
 

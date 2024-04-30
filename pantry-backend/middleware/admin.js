@@ -8,4 +8,4 @@ function isAdmin(req, res, next) {
   next();
 }
 
-module.exports = { protected };
+module.exports = { isAdmin };
