@@ -67,6 +67,7 @@ app.use("/pantry", require("./routes/pantryRoutes.js"));
 app.use("/user", require("./routes/userRoutes.js"));
 app.use("/recipe", require("./routes/recipeRoutes.js"));
 app.use("/test", require("./routes/testRoutes.js"));
+app.use("/finance/", require("./routes/financeRoutes.js"));
 
 
 app.get("/profile", requiresAuth(), (req, res) => {
