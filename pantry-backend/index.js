@@ -58,11 +58,12 @@ const config = {
 const app = express();
 const port =  5000;
 
+app.use(cors());
+
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors());
 app.use("/pantry", require("./routes/pantryRoutes.js"));
 app.use("/user", require("./routes/userRoutes.js"));
 app.use("/recipe", require("./routes/recipeRoutes.js"));
