@@ -122,6 +122,18 @@ const addItem = async (name, quantity = null, price = null, expiration_date = nu
   }
 }
 
+const addItemAtDate = async (name, quantity = null, price = null, expiration_date = null, user_id, date) => {
+  const client = await pool.connect();
+  try {
+    const query = `INSERT INTO pantryItems (name, quantity, price, expiration_date, user_id, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+    const values = [name, quantity, price, expiration_date, user_id, date];
+    const res = await client.query(query, values);
+    return res.rows[0];
+  } finally {
+    client.release();
+  }
+}
+
 const editItem = async (id, name = null, quantity = null, price = null, expiration_date = null) => {
   const client = await pool.connect();
   try {
@@ -145,4 +157,4 @@ const deleteItem = async (id) => {
   }
 }
 
-module.exports = {userExists, registerUser, initDB, getItem, getItems, addItem, editItem, deleteItem};
+module.exports = {userExists, registerUser, initDB, getItem, getItems, addItem, addItemAtDate, editItem, deleteItem};

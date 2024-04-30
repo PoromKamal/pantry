@@ -45,4 +45,35 @@ const recipeItems = [
   { user_id: 1, url: "testUrl", image_regular: "testUrl", image_large: "testUrl", name: "Avocado Toast", calories: 220, fat: 15.0, protein: 4.3, carbs: 20.1 }
 ];
 
-module.exports = {foodItems, recipeItems};
+// Define a function to generate a random date between two given dates
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+const getHistoricalTestItems = (monthsBefore = 12, endDate = new Date(Date.now()), numItems = 80) => {
+  // Define the range for quantity and price
+  const minQuantity = 1;
+  const maxQuantity = 20; // Adjust as needed
+  const minPrice = 0.25;
+  const maxPrice = 50.00; // Adjust as needed
+  // Array of item purchases over the last year
+  const itemHistorical = []
+  let startDate = new Date(Date.now());
+  startDate.setMonth(endDate.getMonth() - monthsBefore);
+  // Generate the items
+  for (let i = 0; i < numItems; i++) {
+    let createdDate = randomDate(startDate, endDate);
+    const item = {
+      name: `Item ${i+1}`,
+      quantity: Math.floor(Math.random() * (maxQuantity - minQuantity + 1)) + minQuantity,
+      price: parseFloat((Math.random() * (maxPrice - minPrice) + minPrice).toFixed(2)),
+      created_at: createdDate.toISOString().split('T')[0],
+      expiration_date: randomDate(createdDate, new Date(createdDate.setMonth(createdDate.getMonth() + 3))).toISOString().split('T')[0],
+    };
+    itemHistorical.push(item);
+  }
+  return itemHistorical;
+}
+
+
+module.exports = {foodItems, recipeItems, getHistoricalTestItems};
