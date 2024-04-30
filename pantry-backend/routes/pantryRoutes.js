@@ -1,7 +1,6 @@
 const express = require('express');
 const { getItem, getItems, addItem, editItem, deleteItem } = require('../db/index.js')
 const multer = require('multer');
-const { protected } = require('../middleware/auth.js');
 const {scanReceipt} = require('../controllers/visionController.js');
 const router = express.Router();
 const upload = multer();
