@@ -9,7 +9,19 @@ import {
 function Dashboard() {
     return (
         <>
-            <h1>Dashboard</h1>
+            <div>
+                <div>
+                    <div>
+                        Finance
+                    </div>
+                    <div>
+                        Recipe
+                    </div>
+                </div>
+                <div>
+                    Pantry
+                </div>
+            </div>
         </>
     );
 }
