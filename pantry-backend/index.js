@@ -58,7 +58,10 @@ const config = {
 const app = express();
 const port =  5000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Specify the origin of the frontend
+  credentials: true // Enable credentials
+}));
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));

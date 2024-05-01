@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center">
+    <main className="flex h-full flex-col items-center">
       <Navigation />
       <h1>Landing</h1>
     </main>

@@ -23,7 +23,7 @@ function Navigation() {
                 </NavbarBrand>
                 <NavbarContent justify='end'>
                     <NavbarItem>
-                        <Link href="http://localhost:5000/login">
+                        <Link href="http://localhost:5000/user/sign-in">
                             <Button>Login</Button>
                         </Link>
                     </NavbarItem>
