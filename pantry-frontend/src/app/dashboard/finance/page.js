@@ -54,7 +54,7 @@ function Finance() {
 
   return (
     <div className='w-full'>
-      <FinanceGraph width={600} height={800} data={data} />
+      <FinanceGraph width={600} height={800} data={purchaseHistoryData} />
     </div>
   );
 }
