@@ -21,6 +21,7 @@ function Recipe() {
           recipe.fat = parseFloat(recipe.fat).toFixed(2);
           recipe.protein = parseFloat(recipe.protein).toFixed(2);
           recipe.carbs = parseFloat(recipe.carbs).toFixed(2);
+          recipe.calories = parseFloat(recipe.calories).toFixed(2);
         });
         setFavouriteRecipes(data.recipes);
         setIsFavouriteLoaded(true);
@@ -48,6 +49,7 @@ function Recipe() {
             recipe.fat = parseFloat(recipe.fat).toFixed(2);
             recipe.protein = parseFloat(recipe.protein).toFixed(2);
             recipe.carbs = parseFloat(recipe.carbs).toFixed(2);
+            recipe.calories = parseFloat(recipe.calories).toFixed(2);
           });
           setDailyRecommendation(data.recipes);
           setIsDailyLoaded(true);
