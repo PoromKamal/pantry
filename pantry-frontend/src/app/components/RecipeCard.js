@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import {Card, CardHeader, CardBody, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Image} from "@nextui-org/react";
 import toast, { Toaster } from 'react-hot-toast';
 
-function RecipeCard({recipe}){
+function RecipeCard({recipe, reload=null}){
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const attributes = ['fat', 'carbs', 'protein'];
 
@@ -18,7 +18,12 @@ function RecipeCard({recipe}){
       body: JSON.stringify({recipeId: id})
     });
     if(response.ok){
-      toast("Added to your Favourites!")
+      let data = await response.json();
+      if(reload != null){
+        console.log("HERE");
+        reload(false);
+      }
+      toast(data.message, {icon: '🎉', duration: 1500});
     }
   };
 

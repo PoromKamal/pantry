@@ -4,15 +4,15 @@ import React, {useState} from 'react';
 import RecipeCard from './RecipeCard';
 import { Card, Container, Row, Text, Grid} from "@nextui-org/react";
 
-function DailyRecipe({data}) {
+function DailyRecipe({data, reload=null}) {
   const [recipes, setRecipes] = useState(data);
   return (
-    <div className='w-11/12 flex flex-col h-fit'>
+    <div className='w-full flex flex-col h-fit'>
       <div className='text-2xl font-medium'>Today's Recipes</div>
       <div className="flex gap-10 overflow-scroll h-5/6 p-5 overflow-y-hidden">
         {
           recipes.map(recipe => (
-            <RecipeCard key={recipe.id} recipe={recipe}/>
+            <RecipeCard reload={reload} key={recipe.id} recipe={recipe}/>
           ))
         }
       </div>

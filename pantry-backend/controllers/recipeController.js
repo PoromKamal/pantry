@@ -68,7 +68,14 @@ const addFavouriteRecipe = asyncHandler(async (req, res) => {
   let user = await userDb.getUserByEmail(email);
   const recipeId = req.body.recipeId;
   await recipeDb.addFavouriteRecipe(user.id, recipeId);
-  res.status(200).json({message: "Recipe added to favourites"});
+  res.status(200).json({message: "Added to favourites!"});
 });
 
-module.exports = { getRecipe, addFavouriteRecipe };
+const getFavouriteRecipes = asyncHandler(async (req, res) => {
+  email = req.oidc.user.email;
+  let user = await userDb.getUserByEmail(email);
+  const recipes = await recipeDb.getFavouriteRecipes(user.id);
+  res.status(200).json({recipes: recipes});
+});
+
+module.exports = { getRecipe, addFavouriteRecipe, getFavouriteRecipes };

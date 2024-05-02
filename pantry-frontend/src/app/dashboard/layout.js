@@ -10,7 +10,7 @@ function DashboardLayout({ children }) {
             <DashboardNavigation />
             <div className="flex pt-3 w-full min-h-[88vh] max-h-screen">
                 <Sidebar />
-                <div className='w-full pt-4 pl-10 max-h-screen'>{children}</div>
+                <div className='w-[88%] pt-4 pl-10 max-h-screen'>{children}</div>
             </div>
         </>
     );

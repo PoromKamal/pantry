@@ -34,7 +34,7 @@ const addRecipe = async(recipe, userId) => {
 }
 
 const addFavouriteRecipe = async (userId, recipeId) => {
-  const query = `INSERT INTO favouriteRecipes (user_id, recipe_id) VALUES ($1, $2)`;
+  const query = `INSERT INTO favouriteRecipes (user_id, recipe_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *`;
   const client = await pool.connect();
   try{
     await client.query("BEGIN");
@@ -48,5 +48,14 @@ const addFavouriteRecipe = async (userId, recipeId) => {
   }
 }
 
+const getFavouriteRecipes = async(userId) => {
+  const query = `SELECT * 
+                FROM FavouriteRecipes F
+                INNER JOIN Recipes R
+                ON F.recipe_id = R.id
+                WHERE R.user_id = $1`;
+  const res = await pool.query(query, [userId]);
+  return res.rows;
+}
 
-module.exports = {getRecipesBetweenDatesForUser, addRecipe, addFavouriteRecipe}
+module.exports = {getRecipesBetweenDatesForUser, addRecipe, addFavouriteRecipe, getFavouriteRecipes}
