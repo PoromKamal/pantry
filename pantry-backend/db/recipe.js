@@ -33,4 +33,20 @@ const addRecipe = async(recipe, userId) => {
   }
 }
 
-module.exports = {getRecipesBetweenDatesForUser, addRecipe}
+const addFavouriteRecipe = async (userId, recipeId) => {
+  const query = `INSERT INTO favouriteRecipes (user_id, recipe_id) VALUES ($1, $2)`;
+  const client = await pool.connect();
+  try{
+    await client.query("BEGIN");
+    const res = await client.query(query, [userId, recipeId]);
+    await client.query("COMMIT");
+    return res.rows[0];
+  }
+  catch (e) {
+    await client.query("ROLLBACK");
+    throw e;
+  }
+}
+
+
+module.exports = {getRecipesBetweenDatesForUser, addRecipe, addFavouriteRecipe}

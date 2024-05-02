@@ -2,13 +2,29 @@
 
 import React, { useEffect } from 'react';
 import {Card, CardHeader, CardBody, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Image} from "@nextui-org/react";
+import toast, { Toaster } from 'react-hot-toast';
 
 function RecipeCard({recipe}){
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const attributes = ['fat', 'carbs', 'protein'];
 
+  const handleAddToFavourites = async (id) => {
+    const response = await fetch('http://localhost:5000/recipe/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({recipeId: id})
+    });
+    if(response.ok){
+      toast("Added to your Favourites!")
+    }
+  };
+
   return (
     <div className='min-w-72 min-h-64 max-h-64 max-w-72'>
+      <Toaster />
       <Card isPressable onPress={onOpen} className="flex flex-col items-center w-full h-full">
         <CardHeader className="flex-col items-start truncate font-medium">
           {recipe.name}
@@ -55,6 +71,9 @@ function RecipeCard({recipe}){
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
+                </Button>
+                <Button color="success" variant="light" onPress={() => {handleAddToFavourites(recipe.id)}}>
+                  Add to Favourites
                 </Button>
               </ModalFooter>
             </>
