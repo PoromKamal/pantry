@@ -13,7 +13,7 @@ function Sidebar() {
     const pathname = usePathname()
 
     return (
-        <div className='flex flex-col items-stretch justify-start h-full w-48 justify-center content-center'>
+        <div className='flex flex-col items-stretch justify-start h-full w-48 pt-2'>
             <div className='flex justify-center content-center p-2'>
                 <Link href="/dashboard">
                     <Button className="w-32" variant={`${pathname === "/dashboard" ? "solid" : "light"}`} color={`${pathname === "/dashboard" ? "primary" : ""}`} radius="sm">Home</Button>
