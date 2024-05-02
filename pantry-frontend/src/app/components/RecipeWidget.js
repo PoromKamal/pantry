@@ -34,14 +34,14 @@ function RecipeWidget({recipe}){
           <div className='text-2xl font-light'>
             Try out this recipe!
           </div>
-          <div className='text-base font-medium text-start ml-1'>
+          <div className='text-base font-medium text-start'>
             {recipe.name}
           </div>
         </CardHeader>
         <Image
             removeWrapper={true}
             alt="Card background"
-            className="object-cover rounded-xl w-full h-full"
+            className="object-cover rounded-xl w-11/12 h-5/6 pb-8"
             src={recipe.image_regular}
           />
       </Card>
