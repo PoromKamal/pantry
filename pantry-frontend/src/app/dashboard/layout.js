@@ -8,9 +8,9 @@ function DashboardLayout({ children }) {
     return (
         <>
             <DashboardNavigation />
-            <div className="flex pt-6 w-full">
+            <div className="flex pt-3 w-full max-h-screen">
                 <Sidebar />
-                <div className='pt-4 pl-10'>{children}</div>
+                <div className='w-full pt-4 pl-10 max-h-screen'>{children}</div>
             </div>
         </>
     );
