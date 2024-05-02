@@ -48,6 +48,13 @@ const initDB = async () => {
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
   `;
 
+  const favouriteRecipeTable = `CREATE TABLE IF NOT EXISTS favouriteRecipes (
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, recipe_id)
+  )`;
+
   const dropAll = `DROP TABLE IF EXISTS users CASCADE`;
 
   try {
@@ -55,6 +62,7 @@ const initDB = async () => {
     await client.query(userTable);
     await client.query(pantryTable);
     await client.query(recommendationTable);
+    await client.query(favouriteRecipeTable);
     await client.query("COMMIT");
   } catch (e) {
     await client.query("ROLLBACK");

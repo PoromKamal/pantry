@@ -8,7 +8,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
-  max: 20,
+  max: 100,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });
@@ -30,7 +30,36 @@ const addRecipe = async(recipe, userId) => {
   } catch (e) {
     await client.query("ROLLBACK");
     throw e;
+  } finally {
+    client.release();
   }
 }
 
-module.exports = {getRecipesBetweenDatesForUser, addRecipe}
+const addFavouriteRecipe = async (userId, recipeId) => {
+  const query = `INSERT INTO favouriteRecipes (user_id, recipe_id) VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *`;
+  const client = await pool.connect();
+  try{
+    await client.query("BEGIN");
+    const res = await client.query(query, [userId, recipeId]);
+    await client.query("COMMIT");
+    return res.rows[0];
+  }
+  catch (e) {
+    await client.query("ROLLBACK");
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
+const getFavouriteRecipes = async(userId) => {
+  const query = `SELECT * 
+                FROM FavouriteRecipes F
+                INNER JOIN Recipes R
+                ON F.recipe_id = R.id
+                WHERE R.user_id = $1`;
+  const res = await pool.query(query, [userId]);
+  return res.rows;
+}
+
+module.exports = {getRecipesBetweenDatesForUser, addRecipe, addFavouriteRecipe, getFavouriteRecipes}
