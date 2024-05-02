@@ -21,4 +21,12 @@ const getSpendingBetweenDates = asyncHandler(async (req, res) => {
   return res.status(200).json({spending: spending});
 });
 
-module.exports = {getSpendingBetweenDates}
+const getAllTimeTopPurchasedItems = asyncHandler(async (req, res) => {
+  email = req.oidc.user.email;
+  let user = await userDb.getUserByEmail(email);
+
+  let topItems = await financeDb.getAllTimeTopPurchasedItems(user.id);
+  return res.status(200).json({topItems: topItems});
+});
+
+module.exports = {getSpendingBetweenDates, getAllTimeTopPurchasedItems}

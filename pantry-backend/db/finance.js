@@ -29,13 +29,16 @@ const getUserSpendingQuery = `SELECT SUM(price) as totalCost, COUNT(id) as items
 const getSpendingBetweenDates = async (userId, start = new Date(new Date().setFullYear(new Date().getFullYear() - 1)), 
                                       end = new Date(Date.now())) =>{
   const key = `${userId}-${start.toISOString().split("T")[0]}-${end.toISOString().split("T")[0]}`;
-  console.log(key);
   const cachedData = await redisClient.get(key);
   if(cachedData){
     console.log("CACHE HIT for key: ", key)
     return JSON.parse(cachedData);
   }
   const res = await pool.query(getUserSpendingQuery, [userId]);
+  // Set all the totalcost to double type
+  res.rows.forEach((row) => {
+    row.totalcost = parseFloat(row.totalcost);
+  });
   
   // Save to cache 
   redisClient.set(key, JSON.stringify(res.rows));
@@ -43,4 +46,15 @@ const getSpendingBetweenDates = async (userId, start = new Date(new Date().setFu
   return res.rows;
 }
 
-module.exports = {getSpendingBetweenDates};
+const getAllTimeTopPurchasedItems = async (userId) => {
+  const query = `SELECT name, SUM(quantity) as items, sum(price) as spent FROM pantryitems
+                 WHERE user_id = $1
+                 GROUP BY name
+                 ORDER BY spent DESC
+                 LIMIT 50`;
+  // TODO: Add to cache
+  const res = await pool.query(query, [userId]);
+  return res.rows;
+};
+
+module.exports = {getSpendingBetweenDates, getAllTimeTopPurchasedItems};
