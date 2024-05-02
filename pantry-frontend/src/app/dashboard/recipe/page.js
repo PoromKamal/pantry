@@ -4,6 +4,8 @@ import DailyRecipe from '@/app/components/DailyRecipe';
 import FavouriteRecipes from '@/app/components/FavouriteRecipes';
 import React, {useState, useEffect} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import {Skeleton} from "@nextui-org/react"
+
 function Recipe() {
   const [getDailyRecommendation, setDailyRecommendation] = useState(null);
   const [isDailyLoaded, setIsDailyLoaded] = useState(false);
@@ -36,6 +38,8 @@ function Recipe() {
     retreiveFavourites();
   }, [isFavouriteLoaded])
 
+  
+
   useEffect(() => {
     const getRecommendation = async () => {
       try {
@@ -59,11 +63,21 @@ function Recipe() {
     getRecommendation();
   }, []);
 
+  
+  const renderSkeleton = () =>{
+    return (
+      <div class="grid grid-rows-2 grid-cols-3 gap-4 w-full h-full">
+        <Skeleton className='col-span-3 bg-stone-50 rounded-lg shadow-lg w-full h-full'/>
+        <Skeleton className='row-span-3 bg-stone-50 rounded-lg shadow-lg w-full h-full'/>
+      </div>
+    )
+  }
+  
   return (
-    <div className='w-full flex max-h-[88vh] flex-col'>
+    <div className='w-full h-full flex max-h-[88vh] flex-col'>
       <Toaster/>
       {
-        !isDailyLoaded ? <p>Loading...</p> : 
+        !isDailyLoaded ? renderSkeleton() : 
         <div className='flex flex-col h-full max-h-full'> 
           <DailyRecipe reload={setIsFavouriteLoaded} data={getDailyRecommendation}/>
           { !isFavouriteLoaded ? <p>Loading...</p> : <FavouriteRecipes data={favouriteRecipes}/>}
