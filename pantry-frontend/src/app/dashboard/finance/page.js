@@ -50,8 +50,8 @@ function Finance() {
   return (
     <div className='w-full flex max-h-[88vh] justify-around'>
       {!isDataLoaded ? <p>Loading...</p> :  
-        <div className='flex flex-col items-center max-h-full'> 
-          <FinanceGraph title={"Spending"} width={1100} height={300} data={purchaseHistoryData} />
+        <div className='flex flex-col items-center max-h-full w-7/12'> 
+          <FinanceGraph title={"Spending YTD."} width={1100} height={300} data={purchaseHistoryData} />
           <FinanceTable data={purchaseHistoryData}/>
         </div>
       }

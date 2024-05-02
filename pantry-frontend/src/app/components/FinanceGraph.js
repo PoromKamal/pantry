@@ -43,25 +43,25 @@ const FinanceGraph = ({title="default", width, height, data}) => {
   
 
   return(
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 w-full p-5'>
       <div className='flex flex-col gap-1 mb-3'>
         <div className='text-2xl font-light'>{titleText}</div>
         <div className='text-4xl font-semibold'>Total ${totalCost}</div>
         <div className='text-2xl font-medium'>Daily Avg. ${dailyAverage}</div>
       </div>
-
-      <AreaChart
-        width={graphWidth}
-        height={graphHeight}
-        data={graphData}
-      >
-        <CartesianGrid vertical={false} />
-        <XAxis axisLine={false} dataKey="created_at" interval={10} tickSize={0} tickMargin={10}
-          style ={{fontSize: "0.75rem"}}/>
-        <YAxis axisLine={false} style ={{fontSize: "0.9rem"}} tickMargin={10} ticks={ticksY} tickFormatter={formatter}/>
-        <Tooltip />
-        <Area type="monotone" dataKey="totalCost" fill="#82ca9d" stroke="#82ca9d" strokeWidth={4}/>
-      </AreaChart>
+      <ResponsiveContainer width="100%" height={height}>
+        <AreaChart
+          height={graphHeight}
+          data={graphData}
+        >
+          <CartesianGrid vertical={false} />
+          <XAxis axisLine={false} dataKey="created_at" interval={10} tickSize={0} tickMargin={10}
+            style ={{fontSize: "0.75rem"}}/>
+          <YAxis axisLine={false} style ={{fontSize: "0.9rem"}} tickMargin={10} ticks={ticksY} tickFormatter={formatter}/>
+          <Tooltip />
+          <Area type="monotone" dataKey="totalCost" fill="#82ca9d" stroke="#82ca9d" strokeWidth={4}/>
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   )
 
