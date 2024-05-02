@@ -4,7 +4,7 @@ import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@
 function FinanceRankingTable({data}) {
 
   return (
-    <div className='flex flex-col w-3/12 max-h-full overflow-hidden'>
+    <div className='flex flex-col w-4/12 max-h-full overflow-hidden'>
       <div className='w-10/12 text-2xl font-light'>Purchase Ranking</div>
       <Table isHeaderSticky className='w-full h-full pb-10 m-1' aria-label="Example empty table">
         <TableHeader>

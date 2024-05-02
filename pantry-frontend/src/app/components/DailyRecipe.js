@@ -9,7 +9,7 @@ function DailyRecipe({data, reload=null}) {
   return (
     <div className='w-full flex flex-col h-fit'>
       <div className='text-2xl font-medium'>Today's Recipes</div>
-      <div className="flex gap-10 overflow-scroll h-5/6 p-5 overflow-y-hidden">
+      <div className="flex gap-10 overflow-scroll h-full p-5 overflow-y-hidden">
         {
           recipes.map(recipe => (
             <RecipeCard reload={reload} key={recipe.id} recipe={recipe}/>

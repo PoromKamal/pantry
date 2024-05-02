@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import FinanceGraph from '@/app/components/FinanceGraph';
 import FinanceTable from '@/app/components/FinanceTable';
 import FinanceRankingTable from '@/app/components/FinanceRankingTable';
+import {Skeleton} from "@nextui-org/react"
 
 function Finance() {
   const [purchaseHistoryData, setPurchaseHistoryData] = useState(null);
@@ -47,11 +48,21 @@ function Finance() {
     getPurchaseRanking();
   }, []);
 
+  const renderSkeleton = () =>{
+    return (
+      <div class="grid grid-rows-2 grid-cols-3 gap-4 w-full h-full">
+        <Skeleton className='col-span-2 bg-stone-50 rounded-lg shadow-lg w-full h-full'/>
+        <Skeleton disableAnimation className='row-span-2 bg-stone-50 rounded-lg shadow-lg w-full h-full'/>
+        <Skeleton  className='col-span-2 bg-stone-50 rounded-lg shadow-lg w-full h-full'/>
+      </div>
+    )
+  }
+  
   return (
-    <div className='w-full flex max-h-[88vh] justify-around'>
-      {!isDataLoaded ? <p>Loading...</p> :  
-        <div className='flex flex-col items-center max-h-full'> 
-          <FinanceGraph title={"Spending"} width={1100} height={300} data={purchaseHistoryData} />
+    <div className='w-full flex h-full max-h-[88vh] justify-around'>
+      {!isDataLoaded ? renderSkeleton() :  
+        <div className='flex flex-col items-center max-h-full w-7/12'> 
+          <FinanceGraph title={"Spending YTD."} width={1100} height={300} data={purchaseHistoryData} />
           <FinanceTable data={purchaseHistoryData}/>
         </div>
       }
