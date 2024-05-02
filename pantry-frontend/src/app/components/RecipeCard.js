@@ -20,16 +20,15 @@ function RecipeCard({recipe, reload=null}){
     if(response.ok){
       let data = await response.json();
       if(reload != null){
-        console.log("HERE");
         reload(false);
       }
+      console.log("TOAST MADE!");
       toast(data.message, {icon: '🎉', duration: 1500});
     }
   };
 
   return (
     <div className='min-w-72 min-h-64 max-h-64 max-w-72'>
-      <Toaster />
       <Card isPressable onPress={onOpen} className="flex flex-col items-center w-full h-full">
         <CardHeader className="flex-col items-start truncate font-medium">
           {recipe.name}

@@ -8,7 +8,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: process.env.DB_PORT,
-  max: 20,
+  max: 100,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });
@@ -30,6 +30,8 @@ const addRecipe = async(recipe, userId) => {
   } catch (e) {
     await client.query("ROLLBACK");
     throw e;
+  } finally {
+    client.release();
   }
 }
 
@@ -45,6 +47,8 @@ const addFavouriteRecipe = async (userId, recipeId) => {
   catch (e) {
     await client.query("ROLLBACK");
     throw e;
+  } finally {
+    client.release();
   }
 }
 
