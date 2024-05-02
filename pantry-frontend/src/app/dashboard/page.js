@@ -41,9 +41,9 @@ function Dashboard() {
             <div className='col-span-2 bg-stone-50 rounded-lg shadow-lg'>
               <FinanceGraph title={"Spending YTD."} width={1050} height={250} data={purchaseHistoryData} />
             </div>
-            <div class="bg-stone-50 rounded-lg">Recipe</div>
-            <div class="bg-stone-50 col-span-1 rounded-lg">What do we put here</div>
-            <div class="bg-stone-50 col-span-2 rounded-lg">Top X items that are about to expire/or oldest</div>
+            <div class="bg-stone-50 rounded-lg shadow-lg">Recipe</div>
+            <div class="bg-stone-50 col-span-1 rounded-lg shadow-lg">What do we put here</div>
+            <div class="bg-stone-50 col-span-2 rounded-lg shadow-lg">Top X items that are about to expire/or oldest</div>
           </div> 
         }
     </>
