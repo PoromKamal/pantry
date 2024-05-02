@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function RecipeCard({recipe, reload=null}){
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const attributes = ['fat', 'carbs', 'protein'];
+  const attributes = ['calories', 'fat', 'carbs', 'protein'];
 
   const handleAddToFavourites = async (id) => {
     const response = await fetch('http://localhost:5000/recipe/', {
@@ -69,7 +69,7 @@ function RecipeCard({recipe, reload=null}){
                   }
                 </div>
                 <div className='text-lg'>
-                  Check out recipe <a className='font-semibold underline' href={recipe.url}>here</a>
+                  Check out recipe <a target='_blank' className='font-semibold underline' href={recipe.url}>here</a>
                 </div>
               </ModalBody>
               <ModalFooter>
