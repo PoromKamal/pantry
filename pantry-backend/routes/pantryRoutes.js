@@ -17,6 +17,38 @@ router.get('/item/:id', async (req, res) => {
     res.json(item);
 });
 
+// Get all pantry items in order of closest to expiration
+router.get('/items/expiring/:email?', async (req, res) => {
+    console.log("HELLO")
+    console.log("Porom",req.oidc.user)
+    const email = req.params.email || req.oidc.user.email;
+    if (!email) {
+        return res.status(400).json({ message: 'Email is required' });
+    }
+
+    let user;
+    try {
+        user = await getUserByEmail(email);
+    } catch (error) {
+        return res.status(400).json({ message: 'User not found' });
+    }
+
+    const { id } = user;
+
+    console.log('Getting pantry items for user', id);
+    const items = await getItems(id);
+    items.sort((a, b) => {
+        if (a.expiration_date === null) {
+            return 1;
+        }
+        if (b.expiration_date === null) {
+            return -1;
+        }
+        return a.expiration_date - b.expiration_date;
+    });
+    res.json(items);
+});
+
 // Get all pantry items for a user
 router.get('/items/:email?', async (req, res) => {
     console.log(req.oidc.user)

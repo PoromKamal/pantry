@@ -33,6 +33,61 @@ import {
     CardBody,
 } from "@nextui-org/react";
 
+export function AddItemModal({ isAddItemOpen, onAddItemOpenChange, setName, setQuantity, setPrice, setExpiration, emptyPantry, addItem, name, price, quantity }) {
+    return (
+        <Modal
+            isOpen={isAddItemOpen}
+            onOpenChange={onAddItemOpenChange}
+            placement='top-center'
+        >
+            <ModalContent>
+                {(onClose) => (
+                    <>
+                        {/* ... rest of the modal code ... */}
+                    </>
+                )}
+            </ModalContent>
+        </Modal>
+    );
+}
+
+export function ScanItemModal({ isScanItemOpen, onScanItemOpenChange, handleFileChange, file, scanReceipt, onScanCartOpen }) {
+    return (
+        <Modal
+            isOpen={isScanItemOpen}
+            onOpenChange={onScanItemOpenChange}
+            placement='top-center'
+        >
+            <ModalContent>
+                {(onClose) => (
+                    <>
+                        {/* ... rest of the modal code ... */}
+                    </>
+                )}
+            </ModalContent>
+        </Modal>
+    );
+}
+
+export function ScanCartModal({ isScanCartOpen, onScanCartOpenChange, selectedKeys, recieptItems, setSelectedKeys, setRecieptItems, addItems }) {
+    return (
+        <Modal
+            isOpen={isScanCartOpen}
+            onOpenChange={onScanCartOpenChange}
+            placement='top'
+            size='4xl'
+        >
+            <ModalContent>
+                {(onClose) => (
+                    <>
+                        {/* ... rest of the modal code ... */}
+                    </>
+                )}
+            </ModalContent>
+        </Modal>
+    );
+}
+
 function Pantry() {
     const { isOpen: isAddItemOpen, onOpen: onAddItemOpen, onOpenChange: onAddItemOpenChange } = useDisclosure();
     const { isOpen: isScanItemOpen, onOpen: onScanItemOpen, onOpenChange: onScanItemOpenChange } = useDisclosure();
