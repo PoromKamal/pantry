@@ -1,4 +1,3 @@
-
 const foodItems = [
   { name: "Apple", quantity: 5, price: 1.99, expiration_date: "2024-05-01" },
   { name: "Banana", quantity: 3, price: 0.75, expiration_date: "2024-04-30" },
@@ -32,6 +31,9 @@ const foodItems = [
   { name: "Strawberry", quantity: 1, price: 3.99, expiration_date: "2024-05-05" },
 ];
 
+
+const foodNames = foodItems.map(item => item.name);
+
 const recipeItems = [
   { user_id: 1, url: "testUrl", image_regular: "testUrl", image_large: "testUrl", name: "Apple Pie", calories: 350, fat: 15.2, protein: 3.5, carbs: 50.6 },
   { user_id: 1, url: "testUrl", image_regular: "testUrl", image_large: "testUrl", name: "Banana Smoothie", calories: 180, fat: 2.1, protein: 5.8, carbs: 35.2 },
@@ -61,15 +63,18 @@ const getHistoricalTestItems = (monthsBefore = 12, endDate = new Date(Date.now()
   let startDate = new Date(Date.now());
   startDate.setMonth(endDate.getMonth() - monthsBefore);
   // Generate the items
+  let currItem = 0
   for (let i = 0; i < numItems; i++) {
     let createdDate = randomDate(startDate, endDate);
     const item = {
-      name: `Item ${i+1}`,
+      name: `${foodNames[currItem % foodNames.length]}`,
       quantity: Math.floor(Math.random() * (maxQuantity - minQuantity + 1)) + minQuantity,
       price: parseFloat((Math.random() * (maxPrice - minPrice) + minPrice).toFixed(2)),
       created_at: createdDate.toISOString().split('T')[0],
       expiration_date: randomDate(createdDate, new Date(createdDate.setMonth(createdDate.getMonth() + 3))).toISOString().split('T')[0],
     };
+
+    currItem += 1;
     itemHistorical.push(item);
   }
   return itemHistorical;
