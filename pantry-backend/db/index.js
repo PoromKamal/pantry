@@ -96,6 +96,19 @@ const registerUser = async (email, given_name) => {
   }
 }
 
+const getItemId = async (name, user_id) => {
+  console.log(name, user_id);
+  const client = await pool.connect();
+  try {
+    const query = `SELECT id FROM pantryItems WHERE name = $1 AND user_id = $2`;
+    const res = await client.query(query, [name, user_id]);
+    console.log(res.rows[0].id);
+    return res.rows[0].id;
+  } finally {
+    client.release();
+  }
+}
+
 const getItem = async (id) => {
   const client = await pool.connect();
   try {
@@ -155,14 +168,16 @@ const editItem = async (id, name = null, quantity = null, price = null, expirati
 }
 
 const deleteItem = async (id) => {
+  console.log("id",id);
   const client = await pool.connect();
   try {
     const query = `DELETE FROM pantryItems WHERE id = $1`;
     const res = await client.query(query, [id]);
+    console.log(res);
     return res.rowCount;
   } finally {
     client.release();
   }
 }
 
-module.exports = {userExists, registerUser, initDB, getItem, getItems, addItem, addItemAtDate, editItem, deleteItem};
+module.exports = {userExists, registerUser, getItemId, initDB, getItem, getItems, addItem, addItemAtDate, editItem, deleteItem};

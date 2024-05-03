@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler');
 
 const receiptPrompt = `
   Give me a comma seperated report on items, and prices on the receipt, for example:
-  Item1:$1.00,Item2:$2.00,Item3:$3.00.
+  Item1:1.00,Item2:2.00,Item3:3.00.
 
   Begin and end the report with a triple back tick (\`\`\`) to signal start and
   end of the report.
@@ -51,7 +51,9 @@ const parseRawText = (receiptResponse) => {
     const splitItem = item.split(":");
     return {
       name: splitItem[0],
-      price: splitItem[1]
+      quantity: 1,
+      price: splitItem[1],
+      expiration_date: null,
     }
   });
   return receiptItems;
