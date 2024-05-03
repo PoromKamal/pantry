@@ -10,9 +10,13 @@ Backed by Gemini API.
 
 ### Recipe Recommendation 👨‍🍳
 Recieve daily recommendations on recipes that you can create with items in your Pantry!
+![image](https://github.com/PoromKamal/pantry/assets/62628923/c5f0b979-c4e7-4514-9a5c-3bb8c68b5c2f)
+
+
 
 ### Finance Tracking 💰
 Keep track of your spending habits through the year. View your previous grocery runs, and the items you spend most of your money on.
+![image](https://github.com/PoromKamal/pantry/assets/62628923/2fd4c056-b5bb-49e8-87f8-c5a611a2ac07)
 
 ## Build Instructions (Development)
 Prerequisites:
