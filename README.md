@@ -3,6 +3,8 @@ Managing household stock can be a daunting task, with the constant juggle of exp
 
 Enter Pantry - your ultimate all-in-one solution to streamline and simplify these tasks. Say goodbye to manual labor and hello to effortless stock management with Pantry by your side.
 
+### Demo Video: https://youtu.be/KELmlgcWEt8
+
 # Core Features
 ### Stock Management with Receipt Scanning 📷
 Easily add items into your stock dashboard by uploading images of your receipts.
