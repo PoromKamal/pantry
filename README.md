@@ -7,6 +7,7 @@ Enter Pantry - your ultimate all-in-one solution to streamline and simplify thes
 ### Stock Management with Receipt Scanning 📷
 Easily add items into your stock dashboard by uploading images of your receipts.
 Backed by Gemini API.
+![image](https://github.com/PoromKamal/pantry/assets/62628923/3779a80c-54e3-4c3c-956a-5b54f3f4aeaf)
 
 ### Recipe Recommendation 👨‍🍳
 Recieve daily recommendations on recipes that you can create with items in your Pantry!
