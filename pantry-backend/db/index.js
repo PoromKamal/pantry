@@ -123,7 +123,7 @@ const getItem = async (id) => {
 const getItems = async (user_id) => {
   const client = await pool.connect();
   try {
-    const query = `SELECT * FROM pantryItems WHERE user_id = $1`;
+    const query = `SELECT * FROM pantryItems WHERE user_id = $1 ORDER BY created_at DESC`;
     const res = await client.query(query, [user_id]);
     return res.rows;
   } finally {

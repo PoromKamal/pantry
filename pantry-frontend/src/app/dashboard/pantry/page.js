@@ -495,7 +495,7 @@ function Pantry() {
                                                 <TableCell>{item.name}</TableCell>
                                                 <TableCell>{item.quantity}</TableCell>
                                                 <TableCell>{item.price}</TableCell>
-                                                <TableCell>{new Date(item.expiration_date).toLocaleDateString()}</TableCell>
+                                                <TableCell>{item.expiration_date == null ? "N/A" : new Date(item.expiration_date).toLocaleDateString()}</TableCell>
                                                 <TableCell>{new Date(item.created_at).toLocaleDateString()}</TableCell>
                                                 <TableCell>
                                                     <Button size="sm" variant="light" color="danger" onClick={() => deleteItem(item.name)}>

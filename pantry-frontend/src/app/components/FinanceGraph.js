@@ -21,13 +21,13 @@ const FinanceGraph = ({title="default", width, height, data}) => {
     const newTicks = Array.from({length: 5}, (v, i) => i * newMax / 5);
     newTicks.push(newMax);
     setTicksY(newTicks);
-
+    
     //Set total cost
     let total = 0;
     data.forEach((item) => {
       total += item.totalCost;
     });
-    setTotalCost(total);
+    setTotalCost(total.toFixed(2));
 
     //Calculate daily average
     const days = data.length;
@@ -39,9 +39,7 @@ const FinanceGraph = ({title="default", width, height, data}) => {
   const formatter = (value) =>{
     return `$ ${value}`;
   }
-
   
-
   return(
     <div className='flex flex-col gap-2 w-full p-5'>
       <div className='flex flex-col gap-1 mb-3'>
@@ -64,7 +62,6 @@ const FinanceGraph = ({title="default", width, height, data}) => {
       </ResponsiveContainer>
     </div>
   )
-
 }
 
 export default FinanceGraph;

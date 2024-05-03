@@ -17,9 +17,9 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: process.env.AUTH0_SECRET,
-  baseURL: 'http://localhost:5000',
-  clientID: 'pqldfYOs6ofTUbOlVfJ4xLCVdN6vDJsA',
-  issuerBaseURL: 'https://dev-g0gqqbnnagycimmh.us.auth0.com',
+  baseURL: process.env.AUTH0_BASE_URL,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
   routes: {
     login: "/login",
     callback: "/callback",
