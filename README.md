@@ -15,13 +15,13 @@ Recieve daily recommendations on recipes that you can create with items in your 
 ### Finance Tracking 💰
 Keep track of your spending habits through the year. View your previous grocery runs, and the items you spend most of your money on.
 
-## Build Instructions
+## Build Instructions (Development)
 Prerequisites:
-1. Docker
-2. Node v20+
-3. Auth0 Account
-4. Edamam API account
-5. Gemini API key
+- Docker
+- Node v20+
+- Auth0 Account
+- Edamam API account
+- Gemini API key
 
 1. Clone the Repo
 ```
